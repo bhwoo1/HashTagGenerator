@@ -27,13 +27,13 @@ function Navigator() {
   }, [pathname]);
 
   return (
-    <div className={`w-full flex flex-row justify-between p-8`}>
+    <div className={`w-full flex flex-row justify-between md:justify-center md:gap-96 p-8`}>
       {routes.map((route) => {
         return (
           <Link key={route.label} href={route.href}>
             <div
-              className={`transition-transform text-[20px] flex flex-row gap-4 hover:scale-110 items-center font-bold p-2 md:mx-96 ${
-                route.isActive ? "text-black" : "text-neutral-400"
+              className={`transition-transform text-[20px] flex flex-row gap-4 hover:scale-110 items-center font-bold p-2 ${
+                route.isActive ? "text-black" : "text-neutral-600"
               }`}
             >
               {route.icon}
