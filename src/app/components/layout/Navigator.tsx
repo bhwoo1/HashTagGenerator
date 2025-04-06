@@ -8,7 +8,6 @@ import { IoIosSettings } from "react-icons/io";
 
 function Navigator() {
   const pathname = usePathname();
-  console.log(pathname)
   const routes = useMemo(() => {
     return [
       {
