@@ -6,9 +6,9 @@ function Title() {
 
   return (
     <article className='flex flex-col gap-4'>
-      <div className='flex sm:flex-row md:flex-col gap-4'>
-          <p className='sm:text-4xl md:text-[70px] font-bold'>#해시태그</p>
-          <p className='sm:text-4xl md:text-[70px] font-bold'>생성기</p>
+      <div className='flex flex-col gap-4'>
+          <p className='text-[50px] md:text-[70px] font-bold'>#해시태그</p>
+          <p className='text-[50px] md:text-[70px] font-bold'>#생성기</p>
       </div>
       <div className='flex flex-row gap-2'>
         {snsList.map((sns, index) => (
