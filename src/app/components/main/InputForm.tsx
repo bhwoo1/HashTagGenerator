@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useRef } from "react";
-import { CiCirclePlus } from "react-icons/ci";
 import Button from "../layout/Button";
 import { useUploadImageStore } from "@/app/stores/images";
 import Image from "next/image";
-import { FaHashtag, FaRedo, FaTrash } from "react-icons/fa";
+import { FaHashtag, FaImage, FaRedo, FaTrash } from "react-icons/fa";
 
 function InputForm() {
   const { imageState, setImage } = useUploadImageStore();
@@ -61,7 +60,7 @@ function InputForm() {
         <div className="flex flex-col gap-4">
           <form>
             <label htmlFor="image">
-              <Button icon={<CiCirclePlus size={60} />} title={""} />
+              <Button icon={<FaImage size={40} />} title={"업로드"} />
             </label>
           </form>
         </div>

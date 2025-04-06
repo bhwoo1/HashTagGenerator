@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useMemo } from "react";
-import { FaImage } from "react-icons/fa";
+import { FaHashtag } from "react-icons/fa";
 import { IoIosSettings } from "react-icons/io";
 
 function Navigator() {
@@ -11,7 +11,7 @@ function Navigator() {
   const routes = useMemo(() => {
     return [
       {
-        icon: <FaImage size={24} />,
+        icon: <FaHashtag size={24} />,
         label: "생성",
         isActive: pathname === "/",
         href: "/",
@@ -31,7 +31,7 @@ function Navigator() {
         return (
           <Link key={route.label} href={route.href}>
             <div
-              className={`transition-transform text-[20px] flex flex-row gap-4 hover:scale-110 items-center font-bold p-2 ${
+              className={`transition-transform text-[20px] flex flex-row gap-2 hover:scale-110 items-center font-bold p-2 ${
                 route.isActive ? "text-black" : "text-neutral-600"
               }`}
             >
