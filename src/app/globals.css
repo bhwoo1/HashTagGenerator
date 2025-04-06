@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+body {
+  color: #000;
+  background-color: #fff;
+}
+
+html.dark body {
+  color: rgb(197, 196, 196);
+  background-color: rgba(5, 9, 32, 0.205);
+}
+
 /* :root {
   --background: #ffffff;
   --foreground: #171717;

@@ -32,7 +32,7 @@ function Navigator() {
           <Link key={route.label} href={route.href}>
             <div
               className={`transition-transform text-[20px] flex flex-row gap-2 hover:scale-110 items-center font-bold p-2 ${
-                route.isActive ? "text-black" : "text-neutral-600"
+                route.isActive && "text-blue-400"
               }`}
             >
               {route.icon}

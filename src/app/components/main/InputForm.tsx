@@ -10,10 +10,12 @@ import {
   FaRedo, 
   // FaTrash 
 } from "react-icons/fa";
+import { useSettingStore } from "@/app/stores/settings";
 
 function InputForm() {
   const { imageState, setImage } = useUploadImageStore();
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const {languageState, quantityState} = useSettingStore();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -54,7 +56,7 @@ function InputForm() {
               </button> */}
               <button
                 onClick={handleChangeImage}
-                className="cursor-pointer hover:scale-110 transition duration-100"
+                className="cursor-pointer hover:scale-120 transition-all duration-150 hover:text-blue-400"
               >
                 <FaRedo size={24} />
               </button>
@@ -81,7 +83,7 @@ function InputForm() {
         onChange={handleImageUpload}
       />
       <div>
-        <p className="text-sm font-bold">현재 설정 : </p>
+        <p className="text-sm font-bold">현재 설정 : {languageState.join(', ')}, {quantityState} 개</p>
       </div>
     </section>
   );
