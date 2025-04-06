@@ -1,7 +1,9 @@
+import Title from "./components/main/Title";
+
 export default function Home() {
   return (
-    <div>
-      Main Page
+    <div className="flex items-center justify-center md:m-24 sm:m-48">
+      <Title />
     </div>
   );
 }
