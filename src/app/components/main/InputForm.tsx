@@ -4,7 +4,12 @@ import React, { useRef } from "react";
 import Button from "../layout/Button";
 import { useUploadImageStore } from "@/app/stores/images";
 import Image from "next/image";
-import { FaHashtag, FaImage, FaRedo, FaTrash } from "react-icons/fa";
+import { 
+  FaHashtag, 
+  FaImage, 
+  FaRedo, 
+  // FaTrash 
+} from "react-icons/fa";
 
 function InputForm() {
   const { imageState, setImage } = useUploadImageStore();
@@ -17,11 +22,12 @@ function InputForm() {
     }
   };
 
-  const handleDeleteImage = () => {
-    setImage(null);
-  };
+  // const handleDeleteImage = () => {
+  //   setImage(null);
+  // };
 
   const handleChangeImage = () => {
+    setImage(null);
     setTimeout(() => {
       inputRef.current?.click(); // input을 강제로 클릭
     }, 0);
@@ -39,13 +45,13 @@ function InputForm() {
               width={200}
               height={200}
             />
-            <div className="flex flex-row justify-between">
-              <button
+            <div className="flex flex-row justify-end">
+              {/* <button
                 onClick={handleDeleteImage}
                 className="cursor-pointer hover:scale-110 transition duration-100"
               >
                 <FaTrash size={24} />
-              </button>
+              </button> */}
               <button
                 onClick={handleChangeImage}
                 className="cursor-pointer hover:scale-110 transition duration-100"
