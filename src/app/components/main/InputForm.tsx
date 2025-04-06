@@ -1,20 +1,85 @@
-import React from 'react'
-import { CiCirclePlus } from 'react-icons/ci'
+"use client";
+
+import React, { useRef } from "react";
+import { CiCirclePlus } from "react-icons/ci";
+import Button from "../layout/Button";
+import { useUploadImageStore } from "@/app/stores/images";
+import Image from "next/image";
+import { FaHashtag, FaRedo, FaTrash } from "react-icons/fa";
 
 function InputForm() {
+  const { imageState, setImage } = useUploadImageStore();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImage(file);
+    }
+  };
+
+  const handleDeleteImage = () => {
+    setImage(null);
+  };
+
+  const handleChangeImage = () => {
+    setTimeout(() => {
+      inputRef.current?.click(); // input을 강제로 클릭
+    }, 0);
+  };
+
   return (
-    <div className='flex flex-col gap-4'>
-        <label htmlFor="image">
-            <div className='flex w-[400px] h-[60px] cursor-pointer hover:bg-neutral-900 transition duration-300 ease-in-out bg-neutral-600 rounded-2xl text-white text-center items-center justify-center'>
-                <CiCirclePlus size={60}/>
+    <section className="flex flex-col gap-4">
+      {imageState ? (
+        <form>
+          <div className="flex flex-col gap-2">
+            <p className="text-sm">업로드한 사진 : {imageState.name}</p>
+            <Image
+              src={URL.createObjectURL(imageState)}
+              alt="upload_image"
+              width={200}
+              height={200}
+            />
+            <div className="flex flex-row justify-between">
+              <button
+                onClick={handleDeleteImage}
+                className="cursor-pointer hover:scale-110 transition duration-100"
+              >
+                <FaTrash size={24} />
+              </button>
+              <button
+                onClick={handleChangeImage}
+                className="cursor-pointer hover:scale-110 transition duration-100"
+              >
+                <FaRedo size={24} />
+              </button>
             </div>
-        </label>
-        <input type='file' name='image' id='image' className='hidden' accept="image/*"/>
-        <div>
-            <p className='text-sm font-bold'>현재 설정 : </p>
+            <Button icon={<FaHashtag size={50} />} title={"생성"} />
+          </div>
+        </form>
+      ) : (
+        <div className="flex flex-col gap-4">
+          <form>
+            <label htmlFor="image">
+              <Button icon={<CiCirclePlus size={60} />} title={""} />
+            </label>
+          </form>
         </div>
-    </div>
-  )
+      )}
+      <input
+        ref={inputRef}
+        type="file"
+        name="image"
+        id="image"
+        className="hidden"
+        accept="image/*"
+        onChange={handleImageUpload}
+      />
+      <div>
+        <p className="text-sm font-bold">현재 설정 : </p>
+      </div>
+    </section>
+  );
 }
 
-export default InputForm
+export default InputForm;
