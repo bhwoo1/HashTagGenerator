@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { HashLoader } from "react-spinners";
 import { useTheme } from "next-themes";
+import imageCompression from "browser-image-compression";
 
 function InputForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,6 +34,22 @@ function InputForm() {
     }, 0);
   };
 
+  const compressImage = async (file: File) => {
+    const options = {
+      maxSizeMB: 1, // 최대 크기 (MB)
+      maxWidthOrHeight: 1024, // 최대 너비 or 높이 (px)
+      useWebWorker: true,
+    };
+  
+    try {
+      const compressedFile = await imageCompression(file, options);
+      return compressedFile;
+    } catch (error) {
+      console.error("이미지 압축 실패:", error);
+      return file; // 압축 실패 시 원본 파일 반환
+    }
+  };
+
   const handleImageSubmit = async () => {
     if (!imageState) {
       Swal.fire({
@@ -44,8 +61,10 @@ function InputForm() {
       return;
     }
 
+    const compressedImage = await compressImage(imageState);
+
     const formData = new FormData();
-    formData.append("image", imageState);
+    formData.append("image", compressedImage);
     formData.append("language", languageState.join(","));
     formData.append("quantity", String(quantityState));
 
