@@ -56,48 +56,58 @@ function SettingForm() {
   }
 
   return (
-    <form className="text-sm md:text-lg font-bold">
-      <section className="flex flex-row justify-between items-center px-8 py-8 md:px-12">
-        <p>다크모드</p>
-        <button className="md:mx-8 cursor-pointer" onClick={handleModeChange}>
-          {theme === "dark" ? <FaMoon /> : <FaSun />}
-        </button>
-      </section>
-      <section className="flex flex-row justify-between items-center px-8 py-8 md:px-12">
-        <p>언어</p>
-        <div className="flex flex-col gap-2 md:mx-4">
-          <label className="flex flex-row gap-1">
-            <input
-              type="checkbox"
-              value="한국어"
-              checked={languageState.includes("한국어")}
-              onChange={handleLanguageCheck}
-            />
-            <p className="text-sm">한국어</p>
-          </label>
-          <label className="flex flex-row gap-1">
-            <input
-              type="checkbox"
-              value="영어"
-              checked={languageState.includes("영어")}
-              onChange={handleLanguageCheck}
-            />{" "}
-            <p className="text-sm">영어</p>
-          </label>
-        </div>
-      </section>
-      <section className="flex flex-row justify-between items-center px-8 py-8 md:px-12">
-        <p>생성 갯수</p>
+    <form className="text-sm md:text-base font-semibold space-y-6">
+  {/* 다크모드 설정 */}
+  <section className="flex justify-between items-center border-2 rounded-xl px-6 py-4 md:px-12 md:py-6">
+    <label className="text-base md:text-lg">다크모드</label>
+    <button
+      type="button"
+      className="text-xl md:text-2xl transition-transform duration-200 hover:scale-110"
+      onClick={handleModeChange}
+    >
+      {theme === "dark" ? <FaMoon /> : <FaSun />}
+    </button>
+  </section>
+
+  {/* 언어 설정 */}
+  <section className="flex justify-between items-center border-2 rounded-xl px-6 py-4 md:px-12 md:py-6">
+    <label className="text-base md:text-lg">언어</label>
+    <div className="flex flex-col gap-2 text-sm md:text-base">
+      <label className="flex items-center gap-2">
         <input
-          type="number"
-          min={1}
-          max={20}
-          defaultValue={quantityState}
-          className="p-2"
-          onChange={handleQuantityChange}
+          type="checkbox"
+          value="한국어"
+          checked={languageState.includes("한국어")}
+          onChange={handleLanguageCheck}
         />
-      </section>
-    </form>
+        <span>한국어</span>
+      </label>
+      <label className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          value="영어"
+          checked={languageState.includes("영어")}
+          onChange={handleLanguageCheck}
+        />
+        <span>영어</span>
+      </label>
+    </div>
+  </section>
+
+  {/* 해시태그 생성 갯수 */}
+  <section className="flex justify-between items-center border-2 rounded-xl px-6 py-4 md:px-12 md:py-6">
+    <label htmlFor="quantity" className="text-base md:text-lg">생성 갯수</label>
+    <input
+      id="quantity"
+      type="number"
+      min={1}
+      max={20}
+      defaultValue={quantityState}
+      onChange={handleQuantityChange}
+      className="w-20 px-2 py-1 border rounded-md text-center"
+    />
+  </section>
+</form>
   );
 }
 
