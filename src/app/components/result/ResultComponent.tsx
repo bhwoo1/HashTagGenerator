@@ -81,12 +81,12 @@ function ResultComponent() {
           />
         </div>
       </div>
-      <div className="w-[400px] h-[200px] border-1 rounded-2xl p-4 relative">
+      <div className="w-[250px] h-[270px] md:w-[400px] md:h-[200px] border-1 rounded-2xl p-4 relative">
         <p className="text-sm">{imageState.name}으로 생성한 #해시태그: </p>
         <textarea
           value={data?.hashtags}
           readOnly
-          className="w-[360px] h-[120px] resize-none rounded-lg  text-sm"
+          className="w-[220px] md:w-[360px] h-[120px] resize-none rounded-lg  text-sm"
         />
         <div className="absolute bottom-4 right-4 flex flex-row gap-12 text-sm">
           <button className="cursor-pointer" onClick={handleReset}>
