@@ -4,12 +4,7 @@ import React, { useRef, useState } from "react";
 import Button from "../layout/Button";
 import { useUploadImageStore } from "@/app/stores/images";
 import Image from "next/image";
-import {
-  FaHashtag,
-  FaImage,
-  FaRedo,
-  // FaTrash
-} from "react-icons/fa";
+import { FaHashtag, FaImage, FaRedo } from "react-icons/fa";
 import { useSettingStore } from "@/app/stores/settings";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
@@ -22,7 +17,7 @@ function InputForm() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { languageState, quantityState } = useSettingStore();
   const router = useRouter();
-  const {theme} = useTheme();
+  const { theme } = useTheme();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -30,10 +25,6 @@ function InputForm() {
       setImage(file);
     }
   };
-
-  // const handleDeleteImage = () => {
-  //   setImage(null);
-  // };
 
   const handleChangeImage = () => {
     setImage(null);
@@ -91,76 +82,78 @@ function InputForm() {
 
   return (
     <>
-    {isLoading && (
-      <div className={`fixed flex-col gap-4 top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-70 z-50 ${theme === 'dark' ? 'bg-neutral-800' : 'bg-white'}`}>
-        <HashLoader 
-        color={"#42A5F5"}
-        loading={true}
-        size={150}
-        aria-label="Loading Spinner"
-        data-testid="loader"/>
-        <div className="text-xl font-bold animate-pulse">생성 중입니다...</div>
-      </div>
-    )}
-    <section className="flex flex-col gap-4">
-      {imageState ? (
-        <form>
-          <div className="flex flex-col gap-2">
-            <p className="text-sm">업로드한 사진 : {imageState.name}</p>
-            <div className="relative w-[200px] h-[200px] rounded-md overflow-hidden">
-              <Image
-                src={URL.createObjectURL(imageState)}
-                alt="upload_image"
-                fill
-                className="object-contain"
-              />
-            </div>
-            <div className="flex flex-row justify-end">
-              {/* <button
-                onClick={handleDeleteImage}
-                className="cursor-pointer hover:scale-110 transition duration-100"
-              >
-                <FaTrash size={24} />
-              </button> */}
-              <button
-                onClick={handleChangeImage}
-                className="cursor-pointer hover:scale-120 transition-all duration-150 hover:text-blue-400"
-              >
-                <FaRedo size={24} />
-              </button>
-            </div>
-            <div>
-              <Button
-                icon={<FaHashtag size={50} />}
-                title={"생성"}
-                type={"submit"}
-                onClick={handleImageSubmit}
-              />
-            </div>
+      {isLoading && (
+        <div
+          className={`fixed flex-col gap-4 top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-70 z-50 ${
+            theme === "dark" ? "bg-neutral-800" : "bg-white"
+          }`}
+        >
+          <HashLoader
+            color={"#42A5F5"}
+            loading={true}
+            size={150}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+          <div className="text-xl font-bold animate-pulse">
+            생성 중입니다...
           </div>
-        </form>
-      ) : (
-        <div className="flex flex-col gap-4">
-          <label htmlFor="image">
-            <Button icon={<FaImage size={40} />} title={"업로드"} />
-          </label>
         </div>
       )}
-      <input
-        ref={inputRef}
-        type="file"
-        name="image"
-        id="image"
-        className="hidden"
-        accept="image/*"
-        onChange={handleImageUpload}
-      />
-      <div>
-        <p className="text-sm font-bold">
-          현재 설정 : {languageState.join(", ")}, {quantityState} 개
-        </p>
-      </div>
-    </section>
+      <section className="flex flex-col gap-4">
+        {imageState ? (
+          <form>
+            <div className="flex flex-col gap-2">
+              <p className="text-sm">업로드한 사진 : {imageState.name}</p>
+              <div className="relative w-[200px] h-[200px] rounded-md overflow-hidden">
+                <Image
+                  src={URL.createObjectURL(imageState)}
+                  alt="upload_image"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <div
+                className="flex flex-row gap-1 justify-end items-center cursor-pointer transition-all duration-150 hover:text-blue-400 font-bold"
+                onClick={handleChangeImage}
+              >
+                <button>
+                  <FaRedo size={13} />
+                </button>
+                <p>재업로드</p>
+              </div>
+              <div>
+                <Button
+                  icon={<FaHashtag size={50} />}
+                  title={"생성"}
+                  type={"submit"}
+                  onClick={handleImageSubmit}
+                />
+              </div>
+            </div>
+          </form>
+        ) : (
+          <div className="flex flex-col gap-4">
+            <label htmlFor="image">
+              <Button icon={<FaImage size={40} />} title={"업로드"} />
+            </label>
+          </div>
+        )}
+        <input
+          ref={inputRef}
+          type="file"
+          name="image"
+          id="image"
+          className="hidden"
+          accept="image/*"
+          onChange={handleImageUpload}
+        />
+        <div>
+          <p className="text-sm font-bold">
+            현재 설정 : {languageState.join(", ")}, {quantityState} 개
+          </p>
+        </div>
+      </section>
     </>
   );
 }
