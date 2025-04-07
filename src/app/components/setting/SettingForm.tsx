@@ -50,17 +50,31 @@ function SettingForm() {
   };
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const quantity = Number(e.target.value);
+    const value = e.target.value;
+    
+
+    // 빈 값이 들어올 경우
+    if (value === "") {
+      setQuantity(1); // 기본값으로 복구
+      return;
+    }
+
+    const quantity = Number(value);
+
     if (quantity < 1 || quantity > 20) {
       Swal.fire({
         title: "warning!",
         text: "1부터 20까지만 입력할 수 있습니다!",
         icon: "warning",
-        confirmButtonText: "OK",
+        showConfirmButton: false,
+        timer: 1000
       });
     }
+    else {
+      setQuantity(quantity);
+    }
 
-    setQuantity(quantity);
+    
   };
 
   return (
