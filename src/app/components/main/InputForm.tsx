@@ -49,6 +49,8 @@ function InputForm() {
 
     const formData = new FormData();
     formData.append("image", imageState);
+    formData.append("language", languageState.join(','));
+    formData.append("quantity", String(quantityState));
 
     const res = await fetch("/api/hashtag", {
       method: "POST",
