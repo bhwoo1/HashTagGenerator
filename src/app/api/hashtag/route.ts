@@ -11,7 +11,7 @@ const client = new vision.ImageAnnotatorClient({
     private_key: process.env.NEXT_PUBLIC_GCP_CLIENT_PRIVATE_KEY?.replace(
       /\\n/g,
       "\n"
-    ), // 이게 중요!
+    ),
   },
   projectId: process.env.NEXT_PUBLIC_GCP_CLIENT_PROJECT_ID,
 });
