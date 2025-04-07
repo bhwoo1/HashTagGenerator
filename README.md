@@ -1,36 +1,15 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## #해시태그#생성기
 
-## Getting Started
 
-First, run the development server:
+    해시태그는 주로 소셜미디어에서 관련된 게시물끼리 묶어주는 역할을 합니다. 해시태그를 이용하면 SNS에서 더 많은 사람들에게 노출될 수 있으며, 팔로워가 아니더라도 해당 게시글을 볼 수 있게 됩니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    하지만 평소 SNS를 이용하는 사람이라면 어떤 해시태그를 올려야 할지 고민을 해 본 경험이 있을 것입니다.  평소 취미로 사진을 자주 찍는 저는 SNS에 사진을 업로드할 때마다 항상 어떤 해시태그를 사용해야할지 고민합니다. 
+    
+    이런 고민을 해결하기 위해 프로젝트를 진행하게 되었습니다. #해시태그 #생성기에 이미지를 업로드하면 AI가 이미지를 분석해 사진에 맞는 해시태그를 자동으로 생성해줍니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   ## 주요 기능
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+     - 이미지를 업로드하면 Cloud Vision API가 이미지를 분석
+     - 분석한 결과를 바탕으로 해시태그 생성
+     - 사용자는 한국어, 영어 및 생성 갯수를 설정하여 원하는 언어로, 원하는 갯수만큼 생성할 수 있음
