@@ -71,7 +71,6 @@ function ResultComponent() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col justify-center items-center">
-        <p className="text-sm">업로드한 사진 : {imageState.name}</p>
         <div className="relative w-[200px] h-[200px] rounded-md overflow-hidden">
           <Image
             src={URL.createObjectURL(imageState)}

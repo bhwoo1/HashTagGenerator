@@ -123,7 +123,6 @@ function InputForm() {
         {imageState ? (
           <form>
             <div className="flex flex-col gap-2">
-              <p className="text-sm">업로드한 사진 : {imageState.name}</p>
               <div className="relative w-[200px] h-[200px] rounded-md overflow-hidden">
                 <Image
                   src={URL.createObjectURL(imageState)}
