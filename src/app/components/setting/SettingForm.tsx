@@ -51,6 +51,14 @@ function SettingForm() {
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const quantity = Number(e.target.value);
+    if (quantity < 1 || quantity > 20) {
+      Swal.fire({
+        title: "warning!",
+        text: "1부터 20까지만 입력할 수 있습니다!",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+    }
 
     setQuantity(quantity);
   };
