@@ -55,7 +55,7 @@ export async function POST(req: Request) {
 
     const response = await gptClient.responses.create({
       model: "gpt-4o",
-      input: `내 이미지에는 다음과 같은 요소가 있어: ${descriptions?.join(",")}. 이걸 보고 감성적인 SNS용 ${language} 해시태그를 전체 ${quantity} 개 추천해 줘. 다만 각 해시태그는 공백으로 구분해 줘.`
+      input: `내 이미지에는 다음과 같은 요소가 있어: ${descriptions?.join(",")}. 이걸 보고 감성적인 SNS용 ${language} 해시태그를 전체 ${quantity} 개 추천해 줘. 각 해시태그는 공백으로 구분해서 줄바꿈 없이 나열해 줘.`
     })
 
     hashtags = response.output_text;
