@@ -70,7 +70,7 @@ function ResultComponent() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col">
+      <div className="flex flex-col justify-center items-center">
         <p className="text-sm">업로드한 사진 : {imageState.name}</p>
         <div className="relative w-[200px] h-[200px] rounded-md overflow-hidden">
           <Image
@@ -83,8 +83,12 @@ function ResultComponent() {
       </div>
       <div className="w-[400px] h-[200px] border-1 rounded-2xl p-4 relative">
         <p className="text-sm">{imageState.name}으로 생성한 #해시태그: </p>
-        <p>{data?.hashtags}</p>
-        <div className="absolute bottom-4 right-4 flex flex-row gap-2">
+        <textarea
+          value={data?.hashtags}
+          readOnly
+          className="w-[360px] h-[120px] resize-none rounded-lg  text-sm"
+        />
+        <div className="absolute bottom-4 right-4 flex flex-row gap-12 text-sm">
           <button className="cursor-pointer" onClick={handleReset}>
             다시하기
           </button>
@@ -92,7 +96,7 @@ function ResultComponent() {
             className="cursor-pointer"
             onClick={() => handleCopy(data?.hashtags)}
           >
-            클립보드에 복사
+            복사
           </button>
         </div>
       </div>
