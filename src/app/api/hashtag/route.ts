@@ -55,10 +55,12 @@ export async function POST(req: Request) {
 
     const response = await gptClient.responses.create({
       model: "gpt-3.5-turbo",
-      input: `내 이미지에는 다음과 같은 요소가 있어: ${descriptions?.join(",")}. 이걸 보고 SNS용 ${language} 해시태그 ${quantity} 개를 추천해 줘. 다만 각 해시태그는 쉼표로 나열해 줘줘`
+      input: `내 이미지에는 다음과 같은 요소가 있어: ${descriptions?.join(",")}. 이걸 보고 SNS용 ${language} 해시태그 ${quantity} 개를 추천해 줘. 다만 각 해시태그는 공백으로 구분해 줘.`
     })
 
     hashtags = response.output_text;
+
+    return NextResponse.json({ status: 200 });
 
   } catch (err) {
     console.error("Error: ", err);

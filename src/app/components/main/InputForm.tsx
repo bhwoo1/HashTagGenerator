@@ -12,11 +12,13 @@ import {
 } from "react-icons/fa";
 import { useSettingStore } from "@/app/stores/settings";
 import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 function InputForm() {
   const { imageState, setImage } = useUploadImageStore();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { languageState, quantityState } = useSettingStore();
+  const router = useRouter();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -49,16 +51,17 @@ function InputForm() {
 
     const formData = new FormData();
     formData.append("image", imageState);
-    formData.append("language", languageState.join(','));
+    formData.append("language", languageState.join(","));
     formData.append("quantity", String(quantityState));
 
     const res = await fetch("/api/hashtag", {
       method: "POST",
       body: formData,
     });
-  
-    const result = await res.json();
-    console.log(result);
+
+    if (res.status === 200) {
+      router.push("/result");
+    }
   };
 
   return (
@@ -67,12 +70,14 @@ function InputForm() {
         <form>
           <div className="flex flex-col gap-2">
             <p className="text-sm">업로드한 사진 : {imageState.name}</p>
-            <Image
-              src={URL.createObjectURL(imageState)}
-              alt="upload_image"
-              width={200}
-              height={200}
-            />
+            <div className="relative w-[200px] h-[200px] rounded-md overflow-hidden">
+              <Image
+                src={URL.createObjectURL(imageState)}
+                alt="upload_image"
+                fill
+                className="object-contain"
+              />
+            </div>
             <div className="flex flex-row justify-end">
               {/* <button
                 onClick={handleDeleteImage}
@@ -100,10 +105,7 @@ function InputForm() {
       ) : (
         <div className="flex flex-col gap-4">
           <label htmlFor="image">
-            <Button
-              icon={<FaImage size={40} />}
-              title={"업로드"}
-            />
+            <Button icon={<FaImage size={40} />} title={"업로드"} />
           </label>
         </div>
       )}
