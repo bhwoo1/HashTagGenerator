@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "#해시태그 #생성기기",
+  title: "#해시태그 #생성기",
   description: "이미지를 업로드해서 SNS용 해시태그를 생성하세요",
   icons: {
 		icon: "/hashtag.png",
