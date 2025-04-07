@@ -4,18 +4,19 @@ import React, { useRef } from "react";
 import Button from "../layout/Button";
 import { useUploadImageStore } from "@/app/stores/images";
 import Image from "next/image";
-import { 
-  FaHashtag, 
-  FaImage, 
-  FaRedo, 
-  // FaTrash 
+import {
+  FaHashtag,
+  FaImage,
+  FaRedo,
+  // FaTrash
 } from "react-icons/fa";
 import { useSettingStore } from "@/app/stores/settings";
+import Swal from "sweetalert2";
 
 function InputForm() {
   const { imageState, setImage } = useUploadImageStore();
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const {languageState, quantityState} = useSettingStore();
+  const { languageState, quantityState } = useSettingStore();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -33,6 +34,29 @@ function InputForm() {
     setTimeout(() => {
       inputRef.current?.click(); // input을 강제로 클릭
     }, 0);
+  };
+
+  const handleImageSubmit = async () => {
+    if (!imageState) {
+      Swal.fire({
+        title: "error!",
+        text: "사진이 업로드되지 않았습니다!",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", imageState);
+
+    const res = await fetch("/api/hashtag", {
+      method: "POST",
+      body: formData,
+    });
+  
+    const result = await res.json();
+    console.log(result);
   };
 
   return (
@@ -61,16 +85,24 @@ function InputForm() {
                 <FaRedo size={24} />
               </button>
             </div>
-            <Button icon={<FaHashtag size={50} />} title={"생성"} />
+            <div>
+              <Button
+                icon={<FaHashtag size={50} />}
+                title={"생성"}
+                type={"submit"}
+                onClick={handleImageSubmit}
+              />
+            </div>
           </div>
         </form>
       ) : (
         <div className="flex flex-col gap-4">
-          <form>
-            <label htmlFor="image">
-              <Button icon={<FaImage size={40} />} title={"업로드"} />
-            </label>
-          </form>
+          <label htmlFor="image">
+            <Button
+              icon={<FaImage size={40} />}
+              title={"업로드"}
+            />
+          </label>
         </div>
       )}
       <input
@@ -83,7 +115,9 @@ function InputForm() {
         onChange={handleImageUpload}
       />
       <div>
-        <p className="text-sm font-bold">현재 설정 : {languageState.join(', ')}, {quantityState} 개</p>
+        <p className="text-sm font-bold">
+          현재 설정 : {languageState.join(", ")}, {quantityState} 개
+        </p>
       </div>
     </section>
   );
