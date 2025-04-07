@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Button from "../layout/Button";
 import { useUploadImageStore } from "@/app/stores/images";
 import Image from "next/image";
@@ -13,12 +13,16 @@ import {
 import { useSettingStore } from "@/app/stores/settings";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { HashLoader } from "react-spinners";
+import { useTheme } from "next-themes";
 
 function InputForm() {
+  const [isLoading, setIsLoading] = useState(false);
   const { imageState, setImage } = useUploadImageStore();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { languageState, quantityState } = useSettingStore();
   const router = useRouter();
+  const {theme} = useTheme();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -54,17 +58,50 @@ function InputForm() {
     formData.append("language", languageState.join(","));
     formData.append("quantity", String(quantityState));
 
-    const res = await fetch("/api/hashtag", {
-      method: "POST",
-      body: formData,
-    });
+    setIsLoading(true);
 
-    if (res.status === 200) {
-      router.push("/result");
+    try {
+      const res = await fetch("/api/hashtag", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.status === 200) {
+        router.push("/result");
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "해시태그 생성에 실패했습니다.",
+          icon: "error",
+          confirmButtonText: "확인",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        title: "Error!",
+        text: "예상치 못한 오류가 발생했습니다.",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
+    <>
+    {isLoading && (
+      <div className={`fixed flex-col gap-4 top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-70 z-50 ${theme === 'dark' ? 'bg-neutral-800' : 'bg-white'}`}>
+        <HashLoader 
+        color={"#42A5F5"}
+        loading={true}
+        size={150}
+        aria-label="Loading Spinner"
+        data-testid="loader"/>
+        <div className="text-xl font-bold animate-pulse">생성 중입니다...</div>
+      </div>
+    )}
     <section className="flex flex-col gap-4">
       {imageState ? (
         <form>
@@ -124,6 +161,7 @@ function InputForm() {
         </p>
       </div>
     </section>
+    </>
   );
 }
 
